@@ -17,4 +17,4 @@ Quick start
 
 2. Include the backend in your AUTHENTICATION_BACKENDS settings like this::
 
-      'django-OneTimePassword.backends.OneTimePassword',
+      'django_OneTimePassword.backends.OneTimePassword',
