@@ -1,4 +1,3 @@
-from django.conf import settings
 from hashlib import sha512
 from time import time
 
