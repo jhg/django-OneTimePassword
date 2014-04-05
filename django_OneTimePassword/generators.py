@@ -1,3 +1,10 @@
+"""
+Password generators
+
+NOTE:
+    For time synchronized use time.time() because is timezone-independent.
+    http://stackoverflow.com/questions/11845803/is-pythons-time-time-timezone-specific
+"""
 from django.conf import settings
 from hashlib import sha512
 from time import time
