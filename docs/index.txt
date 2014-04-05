@@ -1,0 +1,64 @@
+====================================
+Django-OneTimePassword documentation
+====================================
+
+Everything you need to know about Django-OneTimePassword.
+
+Getting help
+============
+
+Having trouble? We'd like to help!
+
+* Report bugs with Django in our `ticket tracker`:
+    https://github.com/jhg/django-OneTimePassword/issues
+
+First steps
+===========
+
+1. Add "django_OneTimePassword" to your INSTALLED_APPS setting like this::
+
+      INSTALLED_APPS = (
+          ...
+          'django_OneTimePassword',
+      )
+
+2. Include the backend in your AUTHENTICATION_BACKENDS settings like this::
+
+      'django_OneTimePassword.backends.OneTimePassword',
+
+Now it is found, open shell with manage.py shell and:
+
+      >>> from django_OneTimePassword.conf import OTP_TIME_SYNCHRONIZED
+      >>> OTP_TIME_SYNCHRONIZED.get_user_seed('admin')
+      '28f1336d5a69b544c7b9f8f47cf4807188f7133231a273000f9069f8816e4e0ea8cc0a08e
+      c4d44666771e3ef6da122cd1a28073b4514bf309c1908a896e70a28'
+
+You can change 'admin' with other username, get_user_seed return and hash that
+you need for in user password generator can generate a password, in next example
+we will use sha512TS module that is in "Password Generators Lib/Python/":
+
+      >>> from sha512TS import gen_user_password
+      >>> gen_user_password('28f1336d5a69b544c7b9f8f47cf4807188f7133231a273000f9
+      069f8816e4e0ea8cc0a08ec4d44666771e3ef6da122cd1a28073b4514bf309c1908a896e70
+      a28', 'admin')
+      'nu5o2k'
+
+It's password that found for login with admin, this password change each X
+seconds.
+
+Configuration
+=============
+
+You can configure Django-OneTimePassword, for example:
+
+  OTP_TIME_SYNCHRONIZED_GENERATOR = 'django_OneTimePassword.generators.sha512TS'
+  OTP_TIME_SYNCHRONIZED_OPTIONS = {
+      'length': 6,
+      'interval': 30,
+      'dictionary': "abcdefghijklmnopqrstuvwxyz0123456789"
+  }
+
+With OTP_TIME_SYNCHRONIZED_GENERATOR configure that password generator is use
+for password time synchronized, with OTP_TIME_SYNCHRONIZED_OPTIONS configure
+options of password generator, for example: interval for each password time
+live, length of password generated and dictionary of chars included in password.
