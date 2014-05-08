@@ -12,8 +12,6 @@ from time import time
 
 class sha512TS(object):
     dictionary = "abcdefghijklmnopqrstuvwxyz0123456789"
-    length = 6
-    interval = 30
 
     def __init__(self, length=6, interval=30, dictionary=None):
         if not dictionary is None:
